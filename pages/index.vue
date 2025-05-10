@@ -87,7 +87,7 @@ onMounted(async () => {
     
     // Load WASM with correct path
     rnnoiseInstance = await Rnnoise.load({ 
-      assetsPath: '/' 
+      assetsPath: '' 
     });
     
     loadingMessage.value = 'RNNoise WAMSモジュールの読み込みが完了しました';
