@@ -5,6 +5,9 @@ export default defineNuxtConfig({
   modules:['@nuxtjs/tailwindcss'],
   ssr: false,
   vite: {
-    assetsInclude: ['**/*.wasm']
+    assetsInclude: ['**/*.wasm'],
+    optimizeDeps: {
+      exclude: ['@shiguredo/rnnoise-wasm']
+    }
   }
 })
