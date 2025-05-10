@@ -56,7 +56,8 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 // RNNoise WASM module will be imported dynamically
-let Rnnoise = null;
+import { Rnnoise } from '@shiguredo/rnnoise-wasm';
+let rnnoiseInstance = null;
 let denoiseState = null;
 
 // Audio context and nodes
@@ -84,12 +85,8 @@ onMounted(async () => {
   try {
     loadingMessage.value = 'RNNoise WAMSモジュールを読み込み中...';
     
-    // Dynamic import of RNNoise
-    const RnnoiseModule = await import('@shiguredo/rnnoise-wasm');
-    Rnnoise = RnnoiseModule.default;
-    
     // Load WASM with correct path
-    await Rnnoise.load({ 
+    rnnoiseInstance = await Rnnoise.load({ 
       locateFile: file => `/_nuxt/assets/${file}` 
     });
     
@@ -216,8 +213,8 @@ const setupAudioProcessing = () => {
     scriptNode = audioContext.createScriptProcessor(BUFFER_SIZE, 1, 1);
     
     // Initialize RNNoise denoiser if not already created
-    if (!denoiseState && Rnnoise) {
-      denoiseState = Rnnoise.createDenoiseState();
+    if (!denoiseState && rnnoiseInstance) {
+      denoiseState = rnnoiseInstance.createDenoiseState();
     }
     
     // Process audio
