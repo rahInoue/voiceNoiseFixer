@@ -19,10 +19,12 @@
 
     * Web Audio API `DynamicsCompressorNode` 使用
     * 設定可能パラメータ：Threshold
-5. **EQ（3バンド）**
+5. **EQ（5バンド）**
 
     * Web Audio API `BiquadFilterNode` 使用
-    * Low（lowshelf）, Mid（peaking）, High（highshelf）各バンドのゲイン調整
+    * Low（lowshelf）, Mid（peaking）, High（highshelf）各バンドのゲイン調整。Q値も可変
+    * イコライザーをあてるときに、リアルタイムで各音域の波形を Canvas に描画し、beforeとafter を比較できるようになるとよい
+
 6. **リミッター**
 
     * DynamicsCompressorNode を利用したブリックウォールリミッティング
@@ -30,6 +32,7 @@
 7. **波形ビジュアライザー**
 
     * `AnalyserNode.getByteTimeDomainData()` を Canvas にリアルタイム描画
+
 8. **処理＆ダウンロード**
 
     * MediaRecorder によるストリーム録音 → WebM 形式でダウンロード
